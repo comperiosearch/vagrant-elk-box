@@ -58,4 +58,4 @@ To run Logstash manually
 ```
 
 
-Read a bit more in this blog post: http://blog.comperiosearch.com/blog/2014/08/14/elk-one-vagrant-box/
+Read (a bit) more: http://blog.comperiosearch.com/blog/2014/08/14/elk-one-vagrant-box/
