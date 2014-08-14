@@ -56,3 +56,6 @@ To run Logstash manually
 
 /opt/logstash/bin/logstash agent -f /path/to/your.config
 ```
+
+
+Read a bit more in this blog post: http://blog.comperiosearch.com/blog/2014/08/14/elk-one-vagrant-box/
