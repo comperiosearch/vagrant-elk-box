@@ -16,8 +16,6 @@ To get started run:
 **NOTE**: there is an issue with the current Vagrant version, so you might get the following error when you do vagrant up:
 
 ```
-#!bash
-
 Failed to mount folders in Linux guest. This is usually because                                   
 the "vboxsf" file system is not available. Please verify that                                     
 the guest additions are properly installed in the guest and                                       
@@ -41,8 +39,6 @@ and you are ready to go.
 
 
 ```
-#!bash
-
 vagrant up # starts the machine
 vagrant ssh # ssh to the machine
 vagrant halt # shut down the machine
@@ -53,8 +49,7 @@ vagrant provision # applies the bash and puppet provisioning
 To run Logstash manually
 
 
-```
-#!bash
+```bash
 
 /opt/logstash/bin/logstash agent -f /path/to/your.config
 ```
