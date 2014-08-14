@@ -24,16 +24,19 @@ mount -t vboxsf -o uid=`id -u vagrant`,gid=`getent group vagrant | cut -d: -f3` 
 mount -t vboxsf -o uid=`id -u vagrant`,gid=`id -g vagrant` vagrant /vagrant
 ```
 
+To fix this error, do in the guest machine (VM logged):
+```
+    $ sudo ln -s /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions
+```
 
-**Check out this link to fix the error:** https://github.com/mitchellh/vagrant/issues/3341#issuecomment-39015570
 
+Exit the VM and do:
 
-After fixing the error do:
-
-      vagrant provision
+      vagrant reload
 
 and you are ready to go.
 
+Read more about this error: https://github.com/mitchellh/vagrant/issues/3341#issuecomment-39015570
 
 ## Vagrant commands
 
