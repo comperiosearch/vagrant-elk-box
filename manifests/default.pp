@@ -116,5 +116,6 @@ file { '/vagrant/kibana':
 
 exec { 'download_kibana':
   command => '/usr/bin/curl https://download.elasticsearch.org/kibana/kibana/kibana-latest.tar.gz | /bin/tar xz -C /vagrant/kibana',
+  creates => '/vagrant/kibana/kibana-latest/config.js',
   require => [ Package['curl'], File['/vagrant/kibana'] ],
 }
