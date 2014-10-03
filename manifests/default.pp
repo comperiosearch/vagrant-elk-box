@@ -87,8 +87,9 @@ package { 'nginx':
   require => [ Class['apt'] ],
 }
 
-file { '/etc/nginx/sites-available/default':
+file { 'nginx-config':
   ensure  => 'link',
+  path    => '/etc/nginx/sites-available/default',
   require => [ Package['nginx'] ],
   target  => '/vagrant/confs/nginx/default',
 }
@@ -96,7 +97,7 @@ file { '/etc/nginx/sites-available/default':
 service { "nginx-service":
   ensure  => 'running',
   name    => 'nginx',
-  require => [ Package['nginx'], File['/etc/nginx/sites-available/default'] ],
+  require => [ Package['nginx'], File['nginx-config'] ],
 }->
 exec { 'reload nginx':
   command => '/etc/init.d/nginx reload',
