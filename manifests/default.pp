@@ -96,7 +96,7 @@ file { '/etc/nginx/sites-available/default':
 service { "nginx-service":
   ensure  => 'running',
   name    => 'nginx',
-  require => [ Package['nginx'] ],
+  require => [ Package['nginx'], File['/etc/nginx/sites-available/default'] ],
 }->
 exec { 'reload nginx':
   command => '/etc/init.d/nginx reload',
