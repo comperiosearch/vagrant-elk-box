@@ -6,34 +6,12 @@ define append_if_no_such_line($file, $line, $refreshonly = 'false') {
    }
 }
 
-# Add the repositories to APT
+# Update APT Cache
 class { 'apt':
   always_apt_update => true,
 }->
 exec { 'apt-get update':
   command => '/usr/bin/apt-get update -qq'
-}
-
-apt_key { 'elasticsearch':
-  ensure => 'present',
-  id     => 'D88E42B4',
-  source => 'http://packages.elasticsearch.org/GPG-KEY-elasticsearch',
-}
-
-apt::source { 'elasticsearch':
-  comment     => 'Elasticsearch 1.3 repository',
-  location    => 'http://packages.elasticsearch.org/elasticsearch/1.3/debian/',
-  include_src => false,
-  release     => 'stable',
-  repos       => 'main',
-}
-
-apt::source { 'logstash':
-  comment     => 'Logstash 1.4 repository',
-  location    => 'http://packages.elasticsearch.org/logstash/1.4/debian',
-  include_src => false,
-  release     => 'stable',
-  repos       => 'main',
 }
 
 file { '/vagrant/elasticsearch':
@@ -47,21 +25,23 @@ class { 'java': }
 
 # Elasticsearch
 class { 'elasticsearch':
-  autoupgrade => true,
-  config      => {
-    'cluster' => {
-      'name'  => 'vagrant_elasticsearch'
+  autoupgrade  => true,
+  config       => {
+    'cluster'  => {
+      'name'   => 'vagrant_elasticsearch'
     },
-    'index'   => {
+    'index'    => {
       'number_of_replicas' => '0',
       'number_of_shards'   => '1',
     },
-    'network' => {
-      'host'  => '0.0.0.0',
+    'network'  => {
+      'host'   => '0.0.0.0',
     }
   },
-  ensure      => 'present',
-  require     => [ Class['apt'], Class['java'], File['/vagrant/elasticsearch'] ],
+  ensure       => 'present',
+  manage_repo  => true,
+  repo_version => '1.3',
+  require      => [ Class['apt'], Class['java'], File['/vagrant/elasticsearch'] ],
 }
 
 service { 'elasticsearch-service':
@@ -72,9 +52,11 @@ service { 'elasticsearch-service':
 
 # Logstash
 class { 'logstash':
-  autoupgrade => true,
-  ensure      => 'present',
-  require     => [ Class['elasticsearch'] ],
+  autoupgrade  => true,
+  ensure       => 'present',
+  manage_repo  => true,
+  repo_version => '1.4',
+  require      => [ Class['apt'], Class['elasticsearch'] ],
 }
 
 file { '/etc/logstash/conf.d/logstash':
