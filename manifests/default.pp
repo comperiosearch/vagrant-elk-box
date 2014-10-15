@@ -43,7 +43,7 @@ class { 'elasticsearch':
   ensure       => 'present',
   manage_repo  => true,
   repo_version => '1.3',
-  require      => [ Class['apt'], Class['java'], File['/vagrant/elasticsearch'] ],
+  require      => [ Class['java'], File['/vagrant/elasticsearch'] ],
 }
 
 service { 'elasticsearch-service':
@@ -58,7 +58,7 @@ class { 'logstash':
   ensure       => 'present',
   manage_repo  => true,
   repo_version => '1.4',
-  require      => [ Class['apt'], Class['elasticsearch'] ],
+  require      => [ Class['java'], Class['elasticsearch'] ],
 }
 
 file { '/etc/logstash/conf.d/logstash':
@@ -100,7 +100,7 @@ file { '/vagrant/kibana':
 }
 
 exec { 'download_kibana':
-  command => '/usr/bin/curl https://download.elasticsearch.org/kibana/kibana/kibana-latest.tar.gz | /bin/tar xz -C /vagrant/kibana',
+  command => '/usr/bin/curl https://download.elasticsearch.org/kibana/kibana/kibana-3.1.1.tar.gz | /bin/tar xz -C /vagrant/kibana',
   creates => '/vagrant/kibana/kibana-latest/config.js',
   require => [ Package['curl'], File['/vagrant/kibana'] ],
 }
