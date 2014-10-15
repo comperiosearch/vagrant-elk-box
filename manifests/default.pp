@@ -46,12 +46,6 @@ class { 'elasticsearch':
   require      => [ Class['java'], File['/vagrant/elasticsearch'] ],
 }
 
-service { 'elasticsearch-service':
-  ensure  => 'running',
-  name    => 'elasticsearch',
-  require => [ Class['elasticsearch'] ],
-}
-
 # Logstash
 class { 'logstash':
   autoupgrade  => true,
