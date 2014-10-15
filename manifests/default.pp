@@ -9,8 +9,10 @@ define append_if_no_such_line($file, $line, $refreshonly = 'false') {
 # Update APT Cache
 class { 'apt':
   always_apt_update => true,
-}->
+}
+
 exec { 'apt-get update':
+  before  => [ Class['elasticsearch'], Class['logstash'] ],
   command => '/usr/bin/apt-get update -qq'
 }
 
