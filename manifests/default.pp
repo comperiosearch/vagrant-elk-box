@@ -21,7 +21,7 @@ class el {
   } ->
   class { 'elasticsearch':
     java_install => true,
-    package_url => 'https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.3.1.deb',
+    package_url => 'https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.3.4.deb',
     config => {
       'cluster' => { 
         'name' => 'vagrant_elasticsearch'
