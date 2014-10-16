@@ -2,7 +2,7 @@ This vagrant box installs elasticsearch, logstash and kibana. In addition, it in
 
 ## Prequisites
 
-[VirtualBox](https://www.virtualbox.org/) and [Vagrant](http://www.vagrantup.com/)
+[VirtualBox](https://www.virtualbox.org/) and [Vagrant](http://www.vagrantup.com/) (minimum version 1.6)
 
 
 
