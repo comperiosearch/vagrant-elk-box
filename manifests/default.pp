@@ -27,7 +27,7 @@ class { 'java': }
 
 # Elasticsearch
 class { 'elasticsearch':
-  autoupgrade  => true,
+  # autoupgrade  => true,
   config       => {
     'cluster'  => {
       'name'   => 'vagrant_elasticsearch'
@@ -41,14 +41,21 @@ class { 'elasticsearch':
     }
   },
   ensure       => 'present',
+  status => 'enabled',
   manage_repo  => true,
   repo_version => '1.3',
   require      => [ Class['java'], File['/vagrant/elasticsearch'] ],
 }
 
+service { "elasticsearch-service":
+  name => 'elasticsearch',
+  ensure => 'running',
+  require => [ Package['elasticsearch'] ]
+}
+
 # Logstash
 class { 'logstash':
-  autoupgrade  => true,
+  # autoupgrade  => true,
   ensure       => 'present',
   manage_repo  => true,
   repo_version => '1.4',
