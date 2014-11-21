@@ -12,7 +12,7 @@ class { 'apt':
 }
 
 exec { 'apt-get update':
-  before  => [ Class['elasticsearch'], Class['logstash'] ],
+  before  => [ Class['logstash'] ],
   command => '/usr/bin/apt-get update -qq'
 }
 
@@ -27,30 +27,24 @@ class { 'java': }
 
 # Elasticsearch
 class { 'elasticsearch':
-  # autoupgrade  => true,
-  config       => {
-    'cluster'  => {
-      'name'   => 'vagrant_elasticsearch'
-    },
-    'index'    => {
-      'number_of_replicas' => '0',
-      'number_of_shards'   => '1',
-    },
-    'network'  => {
-      'host'   => '0.0.0.0',
-    }
-  },
-  ensure       => 'present',
-  status => 'enabled',
-  manage_repo  => true,
-  repo_version => '1.3',
-  require      => [ Class['java'], File['/vagrant/elasticsearch'] ],
+	java_install => true,
+	manage_repo  => true,
+	repo_version => '1.3',
 }
 
-service { "elasticsearch-service":
-  name => 'elasticsearch',
-  ensure => 'running',
-  require => [ Package['elasticsearch'] ]
+elasticsearch::instance { 'es-01':
+  config => { 
+	'cluster.name' => 'vagrant_elasticsearch',
+	'index.number_of_replicas' => '0',
+	'index.number_of_shards'   => '1',
+	'network.host' => '0.0.0.0'
+  },        # Configuration hash
+  init_defaults => { }, # Init defaults hash
+}
+
+elasticsearch::plugin{'royrusso/elasticsearch-HQ':
+  module_dir => 'HQ',
+  instances  => 'es-01'
 }
 
 # Logstash
