@@ -5,6 +5,13 @@
 VAGRANTFILE_API_VERSION = "2"
 
 $script = <<SCRIPT
+# Install wget
+sudo apt-get install -qy wget;
+
+# Update puppet installation
+wget https://raw.githubusercontent.com/hashicorp/puppet-bootstrap/master/ubuntu.sh
+sh ubuntu.sh
+
 mkdir -p /etc/puppet/modules;
 if [ ! -d /etc/puppet/modules/file_concat ]; then
 puppet module install ispavailability/file_concat
