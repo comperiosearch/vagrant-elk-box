@@ -29,7 +29,7 @@ class { 'java': }
 class { 'elasticsearch':
 	java_install => true,
 	manage_repo  => true,
-	repo_version => '1.3',
+	repo_version => '1.4',
 }
 
 elasticsearch::instance { 'es-01':
@@ -37,7 +37,9 @@ elasticsearch::instance { 'es-01':
 	'cluster.name' => 'vagrant_elasticsearch',
 	'index.number_of_replicas' => '0',
 	'index.number_of_shards'   => '1',
-	'network.host' => '0.0.0.0'
+	'network.host' => '0.0.0.0',
+	'http.cors.enabled' => 'true',
+	'http.cors.allow-origin' => 'http://localhost:5601'
   },        # Configuration hash
   init_defaults => { }, # Init defaults hash
 }
@@ -95,7 +97,7 @@ file { '/vagrant/kibana':
 }
 
 exec { 'download_kibana':
-  command => '/usr/bin/curl https://download.elasticsearch.org/kibana/kibana/kibana-3.1.1.tar.gz | /bin/tar xz -C /vagrant/kibana',
+  command => '/usr/bin/curl https://download.elasticsearch.org/kibana/kibana/kibana-3.1.2.tar.gz | /bin/tar xz -C /vagrant/kibana',
   creates => '/vagrant/kibana/kibana-latest/config.js',
   require => [ Package['curl'], File['/vagrant/kibana'] ],
 }
