@@ -27,9 +27,9 @@ class { 'java': }
 
 # Elasticsearch
 class { 'elasticsearch':
-	java_install => true,
 	manage_repo  => true,
-	repo_version => '1.3',
+	repo_version => '1.4',
+  require  => Exec['apt-get update'],
 }
 
 elasticsearch::instance { 'es-01':
@@ -47,13 +47,21 @@ elasticsearch::plugin{'royrusso/elasticsearch-HQ':
   instances  => 'es-01'
 }
 
+
+exec { 'add logstash repo key':
+    command => '/usr/bin/wget -O - http://packages.elasticsearch.org/GPG-KEY-elasticsearch | /usr/bin/apt-key add -'
+  } 
+  exec { 'add logstash repo':
+    command => '/bin/echo "deb http://packages.elasticsearch.org/logstash/1.4/debian stable main" >> /etc/apt/sources.list'
+  }
+
 # Logstash
 class { 'logstash':
   # autoupgrade  => true,
   ensure       => 'present',
   manage_repo  => true,
   repo_version => '1.4',
-  require      => [ Class['java'], Class['elasticsearch'] ],
+  require      => [ Class['java'], Class['elasticsearch'] , Exec['add logstash repo key'], Exec['add logstash repo']],
 }
 
 file { '/etc/logstash/conf.d/logstash':
@@ -61,26 +69,6 @@ file { '/etc/logstash/conf.d/logstash':
   require => [ Class['logstash'] ],
 }
 
-package { 'nginx':
-  ensure  => 'present',
-  require => [ Class['apt'] ],
-}
-
-file { 'nginx-config':
-  ensure  => 'link',
-  path    => '/etc/nginx/sites-available/default',
-  require => [ Package['nginx'] ],
-  target  => '/vagrant/confs/nginx/default',
-}
-
-service { "nginx-service":
-  ensure  => 'running',
-  name    => 'nginx',
-  require => [ Package['nginx'], File['nginx-config'] ],
-}->
-exec { 'reload nginx':
-  command => '/etc/init.d/nginx reload',
-}
 
 # Kibana
 package { 'curl':
@@ -95,7 +83,11 @@ file { '/vagrant/kibana':
 }
 
 exec { 'download_kibana':
-  command => '/usr/bin/curl https://download.elasticsearch.org/kibana/kibana/kibana-3.1.1.tar.gz | /bin/tar xz -C /vagrant/kibana',
-  creates => '/vagrant/kibana/kibana-latest/config.js',
-  require => [ Package['curl'], File['/vagrant/kibana'] ],
+  command => '/usr/bin/curl -L https://download.elasticsearch.org/kibana/kibana/kibana-4.0.0-beta3.tar.gz | /bin/tar xvz -C /vagrant/kibana',
+  require => [ Package['curl'], File['/vagrant/kibana'] ]
+}
+
+exec {'start kibana':
+        command => '/vagrant/kibana/kibana-4.0.0-beta3/bin/kibana',
+        require => [ Exec['download_kibana']]
 }
