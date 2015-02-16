@@ -87,17 +87,17 @@ exec { 'download_kibana':
 }
 
 exec {'start kibana':
-        command => '/vagrant/kibana/kibana-4.0.0-rc1/bin/kibana',
-        require => [ Exec['download_kibana']]
+  command => '/vagrant/kibana/kibana-4.0.0-rc1/bin/kibana',
+  require => [ Exec['download_kibana']]
 }
 
 # needs python
 class { 'python':}
 
 python::pip { 'elasticsearchpython' :
-    pkgname       => 'elasticsearch',
-    require => [Class['python']],
-    ensure => present
+  pkgname       => 'elasticsearch',
+  require => [Class['python']],
+  ensure => present
 }
 
 
