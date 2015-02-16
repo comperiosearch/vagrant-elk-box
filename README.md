@@ -25,5 +25,13 @@ vagrant ssh # ssh to the machine
 vagrant halt # shut down the machine
 vagrant provision # applies the bash and puppet provisioning
 
+```
+
+## Data import and elasticsearch setup
+
+The import.py is a python script that downloads the product catalog from vinmonopolet.no, and puts it into an elasticsearch instance running at localhost:9200. index template for elasticsearch is defined in mapping.json
+
+
+## The ELK box
 
 Read (a bit) more: [http://blog.comperiosearch.com/blog/2014/08/14/elk-one-vagrant-box/](http://blog.comperiosearch.com/blog/2014/08/14/elk-one-vagrant-box/)
