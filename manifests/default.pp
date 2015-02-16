@@ -77,7 +77,8 @@ file { '/vagrant/kibana':
 
 exec { 'download_kibana':
   command => '/usr/bin/curl -L https://download.elasticsearch.org/kibana/kibana/kibana-4.0.0-rc1-linux-x64.tar.gz | /bin/tar xvz -C /vagrant/kibana',
-  require => [ Package['curl'], File['/vagrant/kibana'] ]
+  require => [ Package['curl'], File['/vagrant/kibana'] ],
+  timeout     => 1800
 }
 
 exec {'start kibana':
