@@ -28,6 +28,11 @@ fi
 if [ ! -d /etc/puppet/modules/logstash ]; then
 puppet module install elasticsearch-logstash
 fi
+
+if [ ! -d /etc/puppet/modules/stankevich-python ]; then
+puppet module install stankevich-python
+fi
+
 SCRIPT
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
