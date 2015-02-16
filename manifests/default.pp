@@ -105,3 +105,8 @@ exec {'importpy':
   command  => '/usr/bin/python /vagrant/import.py',
   require => [ Class['elasticsearch'], Class['python']]
 }
+
+package { 'git':
+  ensure  => 'present',
+  require => [ Class['apt'] ],
+}
