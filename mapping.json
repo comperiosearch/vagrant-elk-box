@@ -1,0 +1,132 @@
+{
+    "template": "vinmonopolet*",
+    "mappings": {
+        "produkt": {
+            "_id": {
+                "path": "Varenummer"
+            },
+            "properties": {
+                "Alkohol": {
+                    "type": "float"
+                },
+                "Argang": {
+                    "type": "string"
+                },
+                "Bitterhet": {
+                    "type": "integer"
+                },
+                "Butikkategori": {
+                    "type": "string"
+                },
+                "Datotid": {
+                    "type": "date",
+                    "ignore_malformed": true,
+                    "format": "dateOptionalTime"
+                },
+                "Distributor": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
+                "Distrikt": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
+                "Emballasjetype": {
+                    "type": "string"
+                },
+                "Farge": {
+                    "type": "string"
+                },
+                "Friskhet": {
+                    "type": "integer"
+                },
+                "Fylde": {
+                    "type": "integer"
+                },
+                "Garvestoffer": {
+                    "type": "integer"
+                },
+                "Grossist": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
+                "Korktype": {
+                    "type": "string"
+                },
+                "Lagringsgrad": {
+                    "type": "string"
+                },
+                "Land": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
+                "Literpris": {
+                    "type": "float"
+                },
+                "Lukt": {
+                    "type": "string"
+                },
+                "Metode": {
+                    "type": "string"
+                },
+                "Passertil01": {
+                    "type": "string"
+                },
+                "Passertil02": {
+                    "type": "string"
+                },
+                "Passertil03": {
+                    "type": "string"
+                },
+                "Pris": {
+                    "type": "float"
+                },
+                "Produktutvalg": {
+                    "type": "string"
+                },
+                "Produsent": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
+                "Rastoff": {
+                    "type": "string"
+                },
+                "Smak": {
+                    "type": "string"
+                },
+                "Sodme": {
+                    "type": "integer"
+                },
+                "Sukker": {
+                    "type": "string"
+                },
+                "Syre": {
+                    "type": "string"
+                },
+                "Underdistrikt": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
+                "Varenavn": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
+                "Varenummer": {
+                    "type": "integer"
+                },
+                "Varetype": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
+                "Vareurl": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
+                "Volum": {
+                    "type": "float"
+                }
+            }
+        }
+    }
+
+}
