@@ -1,4 +1,4 @@
-This vagrant box installs elasticsearch, logstash and kibana. In addition, it installs nginx and configures it to serve kibana on port 5601 (you can access it from your host machine by going to http://localhost:5601/)
+This vagrant box installs elasticsearch, logstash and kibana 4. (nginx is not necessary with kibana 4) 
 
 ## Prequisites
 
@@ -12,6 +12,8 @@ To get started run:
 
     vagrant up
     vagrant ssh
+
+Elasticsearch will be available on the host machine at [http://localhost:9200/](http://localhost:9200/), Kibana at [http://localhost:5601/](http://localhost:5601/)
 
 **NOTE**: there is an issue with the current Vagrant version, so you might get the following error when you do vagrant up:
 
