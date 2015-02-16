@@ -108,13 +108,3 @@ exec {'importpy':
   require => [ Class['elasticsearch'], Class['python']]
 }
 
-package { 'git':
-  ensure  => 'present',
-  require => [ Class['apt'] ],
-  timeout     => 1800
-}
-
-exec {'start kibana':
-  command => '/vagrant/kibana/kibana-4.0.0-rc1-linux-x64/bin/kibana',
-  require => [ Exec['download_kibana']]
-}
