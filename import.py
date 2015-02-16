@@ -3,6 +3,8 @@ import urllib2
 import elasticsearch
 import logging
 import json
+import os
+
 
 #fix Norwegian number formatting -> standard (sorry about that)
 def fixNumber(str):
@@ -23,11 +25,12 @@ doctype = "produkt"
 
 
 def main():
-    logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
+    logging.basicConfig(level=logging.WARN, format='%(asctime)s %(message)s')
     if es.indices.exists(index=es_index):
         es.indices.delete(es_index)
     es.indices.create(es_index)
-    json_mapping = json.loads(open("/vagrant/mapping.json", "r").read())
+    dirfile = os.path.dirname(os.path.realpath(__file__))
+    json_mapping = json.loads(open(dirfile + "/mapping.json", "r").read())
     es.indices.put_template(name="vinmonopolettemplate", body=json_mapping)
     url = 'http://www.vinmonopolet.no/api/produkter'
     response = urllib2.urlopen(url)
