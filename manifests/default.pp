@@ -27,17 +27,17 @@ class { 'java': }
 
 # Elasticsearch
 class { 'elasticsearch':
-	java_install => true,
-	manage_repo  => true,
-	repo_version => '1.3',
+
+  manage_repo  => true,
+  repo_version => '1.4',
 }
 
 elasticsearch::instance { 'es-01':
   config => { 
-	'cluster.name' => 'vagrant_elasticsearch',
-	'index.number_of_replicas' => '0',
-	'index.number_of_shards'   => '1',
-	'network.host' => '0.0.0.0'
+  'cluster.name' => 'vagrant_elasticsearch',
+  'index.number_of_replicas' => '0',
+  'index.number_of_shards'   => '1',
+  'network.host' => '0.0.0.0'
   },        # Configuration hash
   init_defaults => { }, # Init defaults hash
 }
@@ -61,26 +61,6 @@ file { '/etc/logstash/conf.d/logstash':
   require => [ Class['logstash'] ],
 }
 
-package { 'nginx':
-  ensure  => 'present',
-  require => [ Class['apt'] ],
-}
-
-file { 'nginx-config':
-  ensure  => 'link',
-  path    => '/etc/nginx/sites-available/default',
-  require => [ Package['nginx'] ],
-  target  => '/vagrant/confs/nginx/default',
-}
-
-service { "nginx-service":
-  ensure  => 'running',
-  name    => 'nginx',
-  require => [ Package['nginx'], File['nginx-config'] ],
-}->
-exec { 'reload nginx':
-  command => '/etc/init.d/nginx reload',
-}
 
 # Kibana
 package { 'curl':
@@ -94,8 +74,13 @@ file { '/vagrant/kibana':
   owner  => 'vagrant',
 }
 
+
 exec { 'download_kibana':
-  command => '/usr/bin/curl https://download.elasticsearch.org/kibana/kibana/kibana-3.1.1.tar.gz | /bin/tar xz -C /vagrant/kibana',
-  creates => '/vagrant/kibana/kibana-latest/config.js',
-  require => [ Package['curl'], File['/vagrant/kibana'] ],
+  command => '/usr/bin/curl -L https://download.elasticsearch.org/kibana/kibana/kibana-4.0.0-rc1-linux-x64.tar.gz | /bin/tar xvz -C /vagrant/kibana',
+  require => [ Package['curl'], File['/vagrant/kibana'] ]
+}
+
+exec {'start kibana':
+  command => '/vagrant/kibana/kibana-4.0.0-rc1-linux-x64/bin/kibana',
+  require => [ Exec['download_kibana']]
 }
