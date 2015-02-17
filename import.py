@@ -4,6 +4,7 @@ import elasticsearch
 import logging
 import json
 import os
+import sys
 
 
 #fix Norwegian number formatting -> standard (sorry about that)
@@ -33,11 +34,19 @@ def main():
     json_mapping = json.loads(open(dirfile + "/mapping.json", "r").read())
     es.indices.put_template(name="vinmonopolettemplate", body=json_mapping)
     url = 'http://www.vinmonopolet.no/api/produkter'
-    response = urllib2.urlopen(url)
+    try:
+        response = urllib2.urlopen(url)
+    except urllib2.HTTPError, err:
+        if err.code != 200:
+            print "There was an error downloading ", err.code
+            sys.exit()
+    except urllib2.URLError, err:
+            print "Some other error happened:", err.reason
+            sys.exit()
+
     cr = UnicodeDictReader(response, delimiter=';')
     for row in cr:
         if len(row) > 2:
-            #3,4,5,26
             row['Volum'] = fixNumber(row['Volum'])
             row['Pris'] = fixNumber(row['Pris'])
             row['Literpris'] = fixNumber(row['Literpris'])
