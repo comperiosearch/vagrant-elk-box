@@ -89,7 +89,7 @@ exec { 'download_kibana':
 }
 
 exec {'start kibana':
-  command => '/vagrant/kibana/kibana-4.0.0-rc1/bin/kibana',
+  command => '/vagrant/kibana/kibana-4.0.0-rc1-linux-x64/bin/kibana',
   require => [ Exec['download_kibana']]
 }
 
