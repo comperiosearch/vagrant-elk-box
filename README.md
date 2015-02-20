@@ -2,6 +2,8 @@ This is a fork off the vagrant-elk-box with additional python installation, elas
 At the moment, no kibana configuration is exported, so you are completely free to toy around and fix it at your own will:)
 Happy times :)
 
+This vagrant box installs elasticsearch, logstash and kibana 4. (nginx is not necessary with kibana 4) 
+
 
 ## Prequisites
 
@@ -15,6 +17,8 @@ To get started run:
 
     vagrant up
     vagrant ssh
+
+Elasticsearch will be available on the host machine at [http://localhost:9200/](http://localhost:9200/), Kibana at [http://localhost:5601/](http://localhost:5601/)
 
 ## Vagrant commands
 
