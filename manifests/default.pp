@@ -46,6 +46,7 @@ elasticsearch::instance { 'es-01':
 	'network.host' => '0.0.0.0'
   },        # Configuration hash
   init_defaults => { }, # Init defaults hash
+  before => Exec['start kibana'] # please wait to start kibana till after this one finished guys
 }
 
 elasticsearch::plugin{'royrusso/elasticsearch-HQ':
@@ -91,8 +92,9 @@ exec { 'download_kibana':
 }
 
 exec {'start kibana':
-  command => '/vagrant/kibana/kibana-4.0.0-linux-x64/bin/kibana',
-  require => [ Exec['download_kibana']]
+  command => '/bin/sleep 10 && /vagrant/kibana/kibana-4.0.0-linux-x64/bin/kibana & ',
+  require => [ Exec['download_kibana']],
+    timeout     => 1800
 }
 
 # needs python
@@ -106,7 +108,7 @@ python::pip { 'elasticsearchpython' :
 
 
 exec {'importpy':
-  command  => '/usr/bin/python /vagrant/import.py',
+  command  => '/bin/sleep 10 && /usr/bin/python /vagrant/import.py',
   require => [ Class['elasticsearch'], Class['python']]
 }
 
