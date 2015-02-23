@@ -1,18 +1,10 @@
 This is a fork off the vagrant-elk-box with additional python installation, elasticsearch mappings and data import scripts for importing the vinmonopolet product catalog. It can be used to create the environment used for [this blog post](http://blog.comperiosearch.com/blog/2015/02/09/kibana-4-beer-analytics-engine/)
 
-This project imports data from vinmonopolet.no, by using this data you should make sure you adher to their terms of service as described at [http://www.vinmonopolet.no/artikkel/om-vinmonopolet/datadeling](http://www.vinmonopolet.no/artikkel/om-vinmonopolet/datadeling). 
-
-##Vinmonopolet data sharing terms of use (English translation(via google translate))
-Use of the data can not happen in such a way that it can appear that Vinmonopolet is a sender of marketing messages or other messages that may be damaging to our reputation or our business. Information from Vinmonopolet shall not be used in contexts that are in violation of the Alcohol Act , including alcohol advertising ban , liquor law or other applicable laws and regulations.
-By linking to our shop it must be clearly stated that all ordering, purchasing and delivery is made from , or at Vinmonopolet or our partners .
-Vinmonopolet reserves the right at any time to make changes to these policies without notice. Those who want to use information from Vinmonopolet or are even obliged to keep up to date on the current guidelines.
-
 
 At the moment, no kibana configuration is exported, so you are completely free to toy around and fix it at your own will:)
 Happy times :)
 
 This vagrant box installs elasticsearch, logstash and kibana 4. (nginx is not needed with kibana 4) 
-
 
 ## Prequisites
 
@@ -63,3 +55,17 @@ The import script fails now and then due to 404 from the server hosting the Vinm
 ## The ELK box
 
 Read (a bit) more: [http://blog.comperiosearch.com/blog/2014/08/14/elk-one-vagrant-box/](http://blog.comperiosearch.com/blog/2014/08/14/elk-one-vagrant-box/)
+
+
+
+
+This project imports data from vinmonopolet.no, by using this data you should make sure you adher to their terms of service as described at [http://www.vinmonopolet.no/artikkel/om-vinmonopolet/datadeling](http://www.vinmonopolet.no/artikkel/om-vinmonopolet/datadeling). 
+
+###Vinmonopolet data sharing terms of use
+(English translation(via google translate))
+
+Use of the data can not happen in such a way that it can appear that Vinmonopolet is a sender of marketing messages or other messages that may be damaging to our reputation or our business. Information from Vinmonopolet shall not be used in contexts that are in violation of the Alcohol Act , including alcohol advertising ban , liquor law or other applicable laws and regulations.
+By linking to our shop it must be clearly stated that all ordering, purchasing and delivery is made from , or at Vinmonopolet or our partners .
+Vinmonopolet reserves the right at any time to make changes to these policies without notice. Those who want to use information from Vinmonopolet or are even obliged to keep up to date on the current guidelines.
+
+Full terms available [here](http://www.vinmonopolet.no/artikkel/om-vinmonopolet/logo/bruk-av-tekst-og-bilder-fra-vinmonopolet)
