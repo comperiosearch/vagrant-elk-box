@@ -40,6 +40,7 @@ elasticsearch::instance { 'es-01':
   'network.host' => '0.0.0.0'
   },        # Configuration hash
   init_defaults => { }, # Init defaults hash
+  before => Exec['start kibana']
 }
 
 elasticsearch::plugin{'royrusso/elasticsearch-HQ':
@@ -82,6 +83,6 @@ exec { 'download_kibana':
 }
 
 exec {'start kibana':
-  command => '/vagrant/kibana/kibana-4.0.0-linux-x64/bin/kibana',
+  command => '/bin/sleep 10 && /vagrant/kibana/kibana-4.0.0-linux-x64/bin/kibana & ',
   require => [ Exec['download_kibana']]
 }
