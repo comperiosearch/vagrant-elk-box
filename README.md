@@ -15,30 +15,6 @@ To get started run:
 
 Elasticsearch will be available on the host machine at [http://localhost:9200/](http://localhost:9200/), Kibana at [http://localhost:5601/](http://localhost:5601/)
 
-**NOTE**: there is an issue with the current Vagrant version, so you might get the following error when you do vagrant up:
-
-```
-Failed to mount folders in Linux guest. This is usually because                                   
-the "vboxsf" file system is not available. Please verify that                                     
-the guest additions are properly installed in the guest and                                       
-can work properly. The command attempted was:
-mount -t vboxsf -o uid=`id -u vagrant`,gid=`getent group vagrant | cut -d: -f3` vagrant /vagrant  
-mount -t vboxsf -o uid=`id -u vagrant`,gid=`id -g vagrant` vagrant /vagrant
-```
-
-To fix this error, do in the guest machine (VM logged):
-```
-    $ sudo ln -s /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions
-```
-
-
-Exit the VM and do:
-
-      vagrant reload
-
-and you are ready to go.
-
-Read more about this error: https://github.com/mitchellh/vagrant/issues/3341#issuecomment-39015570
 
 ## Vagrant commands
 
@@ -51,13 +27,24 @@ vagrant provision # applies the bash and puppet provisioning
 
 ```
 
-To run Logstash manually
+To run Logstash manually.
+Use the following command to use an example logstash config and feed example log file located at example-logs/testlog
+
 
 
 ```bash
 
-/opt/logstash/bin/logstash agent -f /path/to/your.config
+ /opt/logstash/bin/logstash agent -f /vagrant/confs/logstash/logstash.conf
+
 ```
 
+
+If kibana for some reason should fail to start, start it manually using
+
+```bash
+
+/vagrant/kibana/kibana-4.0.0-linux-x64/bin/kibana
+
+```
 
 Read (a bit) more: http://blog.comperiosearch.com/blog/2014/08/14/elk-one-vagrant-box/
