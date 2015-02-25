@@ -185,3 +185,4 @@ elasticsearch
 logs/
 tmp/
 project/
+esbackups/
