@@ -38,12 +38,21 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.box = "ubuntu/trusty64"
+  #config.vm.box = "jdowning/trusty64"
   config.vm.network :forwarded_port, guest: 5601, host: 5601
   config.vm.network :forwarded_port, guest: 9200, host: 9200
   config.vm.network :forwarded_port, guest: 9300, host: 9300
+  
   config.vm.provider :virtualbox do |vb|
     vb.customize ["modifyvm", :id, "--cpus", "2", "--memory", "2048"]
   end
+
+  config.vm.provider "vmware_fusion" do |v, override|
+    override.vm.box = "phusion/ubuntu-14.04-amd64"
+    v.vmx["numvcpus"] = "2"
+    v.vmx["memsize"] = "2048"
+  end
+
   config.vm.provision "shell", inline: $script
   config.vm.provision "puppet", manifests_path: "manifests", manifest_file: "default.pp"
 
