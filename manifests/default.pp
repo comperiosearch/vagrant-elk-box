@@ -101,7 +101,7 @@ python::pip { 'click' :
 }
 
 exec { 'clone gmail-madness':
-  command => 'rm -r gmail-madness && /usr/bin/git clone https://github.com/comperiosearch/gmail-madness.git'
+  command => '/bin/rm -r /home/vagrant/gmail-madness && /usr/bin/git clone https://github.com/comperiosearch/gmail-madness.git'
 }
 
 exec { 'download_kibana':
