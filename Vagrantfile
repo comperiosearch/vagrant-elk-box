@@ -53,5 +53,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provision "shell", inline: $script
   config.vm.provision "puppet", manifests_path: "manifests", manifest_file: "default.pp"
-  config.vm.synced_folder "f:/FRONT-Rettsdata/", "/FRONT-Rettsdata"
 end
