@@ -32,7 +32,7 @@ class { 'elasticsearch':
 }
 
 elasticsearch::instance { 'es-01':
-  config => { 
+  config => {
   'cluster.name' => 'vagrant_elasticsearch',
   'index.number_of_replicas' => '0',
   'index.number_of_shards'   => '1',
@@ -88,7 +88,9 @@ python::pip { 'gmvault' :
   ensure => present
 }
 
-
+exec { 'clone gmail-madness':
+  command => '/usr/bin/git clone https://github.com/comperiosearch/gmail-madness.git'
+}
 
 exec { 'download_kibana':
   command => '/usr/bin/curl -L https://download.elasticsearch.org/kibana/kibana/kibana-4.0.2-linux-x64.tar.gz | /bin/tar xvz -C /vagrant/kibana',
