@@ -88,8 +88,20 @@ python::pip { 'gmvault' :
   ensure => present
 }
 
+python::pip { 'python-dateutil' :
+  pkgname       => 'python-dateutil',
+  require => [Class['python']],
+  ensure => present
+}
+
+python::pip { 'click' :
+  pkgname       => 'click',
+  require => [Class['python']],
+  ensure => present
+}
+
 exec { 'clone gmail-madness':
-  command => '/usr/bin/git clone https://github.com/comperiosearch/gmail-madness.git'
+  command => 'rm -r gmail-madness && /usr/bin/git clone https://github.com/comperiosearch/gmail-madness.git'
 }
 
 exec { 'download_kibana':
