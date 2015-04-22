@@ -76,12 +76,12 @@ file { '/vagrant/kibana':
 
 
 exec { 'download_kibana':
-  command => '/usr/bin/curl -L https://download.elasticsearch.org/kibana/kibana/kibana-4.0.1-linux-x64.tar.gz | /bin/tar xvz -C /vagrant/kibana',
+  command => '/usr/bin/curl -L https://download.elasticsearch.org/kibana/kibana/kibana-4.0.2-linux-x64.tar.gz | /bin/tar xvz -C /vagrant/kibana',
   require => [ Package['curl'], File['/vagrant/kibana'],Class['elasticsearch'] ],
   timeout     => 1800
 }
 
 exec {'start kibana':
-  command => '/bin/sleep 10 && /vagrant/kibana/kibana-4.0.1-linux-x64/bin/kibana & ',
+  command => '/bin/sleep 10 && /vagrant/kibana/kibana-4.0.2-linux-x64/bin/kibana & ',
   require => [ Exec['download_kibana']]
 }
