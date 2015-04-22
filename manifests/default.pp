@@ -73,6 +73,21 @@ file { '/vagrant/kibana':
   group  => 'vagrant',
   owner  => 'vagrant',
 }
+# needs python
+class { 'python':}
+
+python::pip { 'elasticsearchpython' :
+  pkgname       => 'elasticsearch',
+  require => [Class['python']],
+  ensure => present
+}
+
+python::pip { 'gmvault' :
+  pkgname       => 'gmvault',
+  require => [Class['python']],
+  ensure => present
+}
+
 
 
 exec { 'download_kibana':
