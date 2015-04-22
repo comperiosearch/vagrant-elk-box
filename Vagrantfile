@@ -9,8 +9,8 @@ $script = <<SCRIPT
 sudo apt-get install -qy wget;
 
 # Update puppet installation
-wget https://raw.githubusercontent.com/hashicorp/puppet-bootstrap/master/ubuntu.sh
-sh ubuntu.sh
+#wget https://raw.githubusercontent.com/hashicorp/puppet-bootstrap/master/ubuntu.sh
+sh /vagrant/ubuntu.sh
 
 mkdir -p /etc/puppet/modules;
 if [ ! -d /etc/puppet/modules/file_concat ]; then
@@ -53,5 +53,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provision "shell", inline: $script
   config.vm.provision "puppet", manifests_path: "manifests", manifest_file: "default.pp"
-
+  config.vm.synced_folder "f:/FRONT-Rettsdata/", "/FRONT-Rettsdata"
 end
