@@ -19,7 +19,7 @@ puppet module install ispavailability/file_concat
 fi
 
 if [ ! -d /etc/puppet/modules/apt ]; then
-puppet module install puppetlabs-apt
+puppet module install puppetlabs-apt --version 1.8.0
 fi
 
 if [ ! -d /etc/puppet/modules/java ]; then
