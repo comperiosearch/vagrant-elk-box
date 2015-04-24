@@ -36,9 +36,12 @@ elasticsearch::instance { 'es-01':
   'cluster.name' => 'vagrant_elasticsearch',
   'index.number_of_replicas' => '0',
   'index.number_of_shards'   => '1',
-  'network.host' => '0.0.0.0'
+  'network.host' => '0.0.0.0',
+  'indices.memory.index_buffer_size' => '50%'
   },        # Configuration hash
-  init_defaults => { }, # Init defaults hash
+  init_defaults => {
+      'ES_HEAP_SIZE' => '2048000000'
+  }, # Init defaults hash
   before => Exec['start kibana']
 }
 
@@ -77,31 +80,41 @@ file { '/vagrant/kibana':
 class { 'python':}
 
 python::pip { 'elasticsearchpython' :
-  pkgname       => 'elasticsearch',
+  pkgname => 'elasticsearch',
   require => [Class['python']],
   ensure => present
 }
 
 python::pip { 'gmvault' :
-  pkgname       => 'gmvault',
+  pkgname => 'gmvault',
   require => [Class['python']],
   ensure => present
 }
 
 python::pip { 'python-dateutil' :
-  pkgname       => 'python-dateutil',
+  pkgname => 'python-dateutil',
   require => [Class['python']],
   ensure => present
 }
+
+python::pip { 'beautifulsoup4' :
+  pkgname => 'beautifulsoup4',
+  require => [Class['python']],
+  ensure => present
+}
+
 
 python::pip { 'click' :
-  pkgname       => 'click',
+  pkgname => 'click',
   require => [Class['python']],
   ensure => present
 }
 
-exec { 'clone gmail-madness':
-  command => '/bin/rm -r /home/vagrant/gmail-madness && /usr/bin/git clone https://github.com/comperiosearch/gmail-madness.git'
+vcsrepo { '/vagrant/gmail-madness':
+  ensure => latest,
+  provider => git,
+  source => 'git://github.com/comperiosearch/gmail-madness.git',
+  revision => 'master',
 }
 
 exec { 'download_kibana':

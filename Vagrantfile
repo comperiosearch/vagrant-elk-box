@@ -38,6 +38,10 @@ if [ ! -d /etc/puppet/modules/stankevich-python ]; then
 puppet module install stankevich-python
 fi
 
+if [ ! -d /etc/puppet/modules/vcsrepo ]; then
+puppet module install puppetlabs-vcsrepo
+fi
+
 SCRIPT
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -53,12 +57,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :forwarded_port, guest: 9300, host: 9300
 
   config.vm.provider :virtualbox do |vb|
-    vb.customize ["modifyvm", :id, "--cpus", "2", "--memory", "2048"]
+    vb.customize ["modifyvm", :id, "--cpus", "2", "--memory", "4096"]
   end
 
   config.vm.provider "vmware_fusion" do |v, override|
     v.vmx["numvcpus"] = "2"
-    v.vmx["memsize"] = "2048"
+    v.vmx["memsize"] = "4096"
   end
 
   config.vm.provision "shell", inline: $script
