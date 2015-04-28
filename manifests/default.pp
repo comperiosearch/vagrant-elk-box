@@ -37,7 +37,8 @@ elasticsearch::instance { 'es-01':
   'index.number_of_replicas' => '0',
   'index.number_of_shards'   => '1',
   'network.host' => '0.0.0.0',
-  'indices.memory.index_buffer_size' => '50%'
+  'indices.memory.index_buffer_size' => '50%',
+  'discovery.zen.ping.multicast.enabled' => 'false'
   },        # Configuration hash
   init_defaults => {
       'ES_HEAP_SIZE' => '2048000000'
