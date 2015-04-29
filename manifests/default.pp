@@ -68,20 +68,19 @@ package { 'curl':
   require => [ Class['apt'] ],
 }
 
-file { '/vagrant/kibana':
+file { '/opt/kibana':
   ensure => 'directory',
   group  => 'vagrant',
   owner  => 'vagrant',
 }
 
-
 exec { 'download_kibana':
-  command => '/usr/bin/curl -L https://download.elasticsearch.org/kibana/kibana/kibana-4.0.2-linux-x64.tar.gz | /bin/tar xvz -C /vagrant/kibana',
-  require => [ Package['curl'], File['/vagrant/kibana'],Class['elasticsearch'] ],
-  timeout     => 1800
+  command => '/usr/bin/curl -L https://download.elasticsearch.org/kibana/kibana/kibana-4.0.2-linux-x64.tar.gz | /bin/tar xvz -C /opt/kibana --strip-components 1',
+  require => [ Package['curl'], File['/opt/kibana'], Class['elasticsearch'] ],
+  timeout => 1800
 }
 
 exec {'start kibana':
-  command => '/bin/sleep 10 && /vagrant/kibana/kibana-4.0.2-linux-x64/bin/kibana & ',
+  command => '/bin/sleep 10 && /opt/kibana/bin/kibana & ',
   require => [ Exec['download_kibana']]
 }

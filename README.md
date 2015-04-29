@@ -43,7 +43,7 @@ If kibana for some reason should fail to start, start it manually using
 
 ```bash
 
-/vagrant/kibana/kibana-4.0.0-linux-x64/bin/kibana
+/opt/kibana/bin/kibana
 
 ```
 
