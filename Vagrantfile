@@ -30,6 +30,7 @@ puppet module install elasticsearch-logstash
 fi
 if [ ! -f /etc/init.d/kibana ]; then
 sudo cp /vagrant/kibana4_init /etc/init.d/kibana
+sudo sed -i 's/\r//' /etc/init.d/kibana
 sudo chmod +x /etc/init.d/kibana
 sudo update-rc.d kibana defaults
 fi
