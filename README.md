@@ -13,8 +13,10 @@ To get started run:
     vagrant up
     vagrant ssh
 
-Elasticsearch will be available on the host machine at [http://localhost:9200/](http://localhost:9200/), Kibana at [http://localhost:5601/](http://localhost:5601/)
-
+- Elasticsearch will be available on the host machine at [http://localhost:9200/](http://localhost:9200/)
+- Kibana will be available on [http://localhost:5601/](http://localhost:5601/)
+- Logstash is available on port 5959 (both UDP and TCP)
+    - Incoming messages with ```message``` prefixed with ```SIRONO_EVENTS``` will be automatically parsed into JSON
 
 ## Vagrant commands
 
