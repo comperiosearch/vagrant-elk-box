@@ -1,9 +1,9 @@
-This vagrant box installs elasticsearch, logstash and kibana 4. (nginx is not necessary with kibana 4) 
+This vagrant box installs elasticsearch 1.5, logstash 1.5 and kibana 4. 
 
 ## Prequisites
 
 [VirtualBox](https://www.virtualbox.org/) and [Vagrant](http://www.vagrantup.com/) (minimum version 1.6)
-
+Other providers, like VMWare may work, not tested!
 
 
 ## Up and SSH
@@ -27,23 +27,22 @@ vagrant provision # applies the bash and puppet provisioning
 
 ```
 
-To run Logstash manually.
-Use the following command to use an example logstash config and feed example log file located at example-logs/testlog
-
-
+Logstash is started on boot and indexes into elasticsearch using the config file at /vagrant/confs/logstash/logstash.conf,
+reading from example log file at /vagrant/example-logs/testlog
+Controlled by 
 
 ```bash
 
- /opt/logstash/bin/logstash agent -f /vagrant/confs/logstash/logstash.conf
+ sudo /etc/init.d/logstash status
 
 ```
 
 
-If kibana for some reason should fail to start, start it manually using
+Kibana is controlled by init script at 
 
 ```bash
 
-/opt/kibana/bin/kibana
+sudo /etc/init.d/kibana status
 
 ```
 
