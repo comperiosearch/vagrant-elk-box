@@ -52,7 +52,7 @@ class { 'logstash':
   # autoupgrade  => true,
   ensure       => 'present',
   manage_repo  => true,
-  repo_version => '1.4',
+  repo_version => '1.5',
   require      => [ Class['java'], Class['elasticsearch'] ],
 }
 
