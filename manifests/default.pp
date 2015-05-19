@@ -1,11 +1,3 @@
-define append_if_no_such_line($file, $line, $refreshonly = 'false') {
-   exec { "/bin/echo '$line' >> '$file'":
-      unless      => "/bin/grep -Fxqe '$line' '$file'",
-      path        => "/bin",
-      refreshonly => $refreshonly
-   }
-}
-
 # Update APT Cache
 class { 'apt':
   always_apt_update => true,
@@ -14,12 +6,6 @@ class { 'apt':
 exec { 'apt-get update':
   before  => [ Class['logstash'] ],
   command => '/usr/bin/apt-get update -qq'
-}
-
-file { '/vagrant/elasticsearch':
-  ensure => 'directory',
-  group  => 'vagrant',
-  owner  => 'vagrant',
 }
 
 # Java is required
@@ -44,6 +30,11 @@ elasticsearch::instance { 'es-01':
 
 elasticsearch::plugin{'royrusso/elasticsearch-HQ':
   module_dir => 'HQ',
+  instances  => 'es-01'
+}
+
+elasticsearch::plugin{'elasticsearch/marvel/latest':
+  module_dir => 'marvel',
   instances  => 'es-01'
 }
 
@@ -81,6 +72,6 @@ exec { 'download_kibana':
 }
 
 exec {'start kibana':
-  command => '/bin/sleep 10 && /opt/kibana/bin/kibana & ',
-  require => [ Exec['download_kibana']]
+  #command => '/bin/sleep 10 && /opt/kibana/bin/kibana & ',
+    command => '/etc/init.d/kibana start',
 }
