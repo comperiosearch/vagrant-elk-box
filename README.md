@@ -13,7 +13,10 @@ To get started run:
     vagrant up
     vagrant ssh
 
-Elasticsearch will be available on the host machine at [http://localhost:9200/](http://localhost:9200/), Kibana at [http://localhost:5601/](http://localhost:5601/)
+Elasticsearch will be available on the host machine at [http://localhost:9200/](http://localhost:9200/) 
+Kibana at [http://localhost:5601/](http://localhost:5601/)
+Marvel elasticsearch plugin at [http://localhost:9200/_plugin/marvel/](http://localhost:9200/_plugin/marvel/)
+HQ elasticsearch plugin at [http://localhost:9200/_plugin/HQ/](http://localhost:9200/_plugin/HQ/)
 
 
 ## Vagrant commands
