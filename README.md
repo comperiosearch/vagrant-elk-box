@@ -14,8 +14,11 @@ To get started run:
     vagrant ssh
 
 Elasticsearch will be available on the host machine at [http://localhost:9200/](http://localhost:9200/) 
+
 Kibana at [http://localhost:5601/](http://localhost:5601/)
+
 Marvel elasticsearch plugin at [http://localhost:9200/_plugin/marvel/](http://localhost:9200/_plugin/marvel/)
+
 HQ elasticsearch plugin at [http://localhost:9200/_plugin/HQ/](http://localhost:9200/_plugin/HQ/)
 
 
@@ -30,13 +33,13 @@ vagrant provision # applies the bash and puppet provisioning
 
 ```
 
-Logstash is started on boot and indexes into elasticsearch using the config file at /vagrant/confs/logstash/logstash.conf,
-reading from example log file at /vagrant/example-logs/testlog
+Logstash is started on boot and indexes into elasticsearch using the config file at [/vagrant/confs/logstash/logstash.conf](/confs/logstash/logstash.conf),
+reading from example log file at [/vagrant/example-logs/testlog](/example-logs/testlog)
 Controlled by 
 
 ```bash
 
- sudo /etc/init.d/logstash status
+ sudo service logstash 
 
 ```
 
@@ -45,8 +48,18 @@ Kibana is controlled by init script at
 
 ```bash
 
-sudo /etc/init.d/kibana status
+sudo service kibana 
 
 ```
+
+## Configuration details
+Elasticsearch and Logstash are installed using puppet modules.  deb file for Kibana is downloaded and extracted, thanks to @UnrealQuester we even have init script for Kibana. 
+Installation can be configured in the file [/manifests/default.pp](/manifests/default.pp) .For details on the elasticsearch puppet configuration, see [https://forge.puppetlabs.com/elasticsearch/elasticsearch](https://forge.puppetlabs.com/elasticsearch/elasticsearch) Logstash puppet at [https://forge.puppetlabs.com/elasticsearch/logstash](https://forge.puppetlabs.com/elasticsearch/logstash)
+
+Elasticsearch is installed using cluster name 'vagrant_elasticsearch', instance name es-01, using 1 shard, 0 replicas. 
+Elasticsearch is controlled by init script
+````
+sudo service elasticsearch-es-01
+````
 
 Read (a bit) more: http://blog.comperiosearch.com/blog/2014/08/14/elk-one-vagrant-box/
