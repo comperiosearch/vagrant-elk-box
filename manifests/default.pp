@@ -3,10 +3,6 @@ class { 'apt':
   always_apt_update => true,
 }
 
-exec { 'apt-get update':
-  before  => [ Class['logstash'] ],
-  command => '/usr/bin/apt-get update -qq'
-}
 
 # Java is required
 class { 'java': }
@@ -14,7 +10,7 @@ class { 'java': }
 # Elasticsearch
 class { 'elasticsearch':
   manage_repo  => true,
-  repo_version => '1.5',
+  repo_version => '1.6',
 }
 
 elasticsearch::instance { 'es-01':
@@ -22,7 +18,8 @@ elasticsearch::instance { 'es-01':
   'cluster.name' => 'vagrant_elasticsearch',
   'index.number_of_replicas' => '0',
   'index.number_of_shards'   => '1',
-  'network.host' => '0.0.0.0'
+  'network.host' => '0.0.0.0',
+  'marvel.agent.enabled' => false #DISABLE marvel data collection. 
   },        # Configuration hash
   init_defaults => { }, # Init defaults hash
   before => Exec['start kibana']
@@ -66,7 +63,7 @@ file { '/opt/kibana':
 }
 
 exec { 'download_kibana':
-  command => '/usr/bin/curl -L https://download.elasticsearch.org/kibana/kibana/kibana-4.0.2-linux-x64.tar.gz | /bin/tar xvz -C /opt/kibana --strip-components 1',
+  command => '/usr/bin/curl -L https://download.elastic.co/kibana/kibana/kibana-4.1.0-linux-x64.tar.gz | /bin/tar xvz -C /opt/kibana --strip-components 1',
   require => [ Package['curl'], File['/opt/kibana'], Class['elasticsearch'] ],
   timeout => 1800
 }
