@@ -15,14 +15,10 @@ To get started run:
 
 Note: the original `vagrant up` will also do a `provision`. If there are major failures on this then log in with `varant ssh` and then `apt-get update` and then `provision` again.
 
-Elasticsearch will be available on the host machine at [http://localhost:9200/](http://localhost:9200/) 
-
-Kibana at [http://localhost:5601/](http://localhost:5601/)
-
-Marvel elasticsearch plugin at [http://localhost:9200/_plugin/marvel/](http://localhost:9200/_plugin/marvel/)
-
-HQ elasticsearch plugin at [http://localhost:9200/_plugin/HQ/](http://localhost:9200/_plugin/HQ/)
-
+* Elasticsearch - [http://localhost:9200/](http://localhost:9200/) 
+* Kibana - [http://localhost:5601/](http://localhost:5601/)
+* Marvel elasticsearch plugin - [http://localhost:9200/_plugin/marvel/](http://localhost:9200/_plugin/marvel/)
+* HQ elasticsearch plugin - [http://localhost:9200/_plugin/HQ/](http://localhost:9200/_plugin/HQ/)
 
 ## Vagrant commands
 
