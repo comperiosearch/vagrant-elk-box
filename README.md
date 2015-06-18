@@ -1,4 +1,4 @@
-This vagrant box installs elasticsearch 1.6, logstash 1.5 and kibana 4. 
+This vagrant box installs elasticsearch 1.6, logstash 1.5 and kibana 4. There is some log and stock data that you can then visualise in Kibana and play around with. See bottom for creating stock visualisations and dashboard.
 
 ## Prequisites
 
