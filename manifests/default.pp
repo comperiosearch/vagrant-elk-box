@@ -49,6 +49,10 @@ file { '/etc/logstash/conf.d/logstash':
   require => [ Class['logstash'] ],
 }
 
+file { '/etc/logstash/conf.d/01-logstash':
+  ensure  => '/vagrant/confs/logstash/01-logstash.conf',
+  require => [ Class['logstash'] ],
+}
 
 # Kibana
 package { 'curl':
