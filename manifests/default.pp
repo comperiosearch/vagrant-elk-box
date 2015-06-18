@@ -44,13 +44,13 @@ class { 'logstash':
   require      => [ Class['java'], Class['elasticsearch'] ],
 }
 
-file { '/etc/logstash/conf.d/logstash':
-  ensure  => '/vagrant/confs/logstash/logstash.conf',
+file { '/etc/logstash/conf.d/01-logstash':
+  ensure  => '/vagrant/confs/logstash/01-logstash.conf',
   require => [ Class['logstash'] ],
 }
 
-file { '/etc/logstash/conf.d/01-logstash':
-  ensure  => '/vagrant/confs/logstash/01-logstash.conf',
+file { '/etc/logstash/conf.d/02-logstash':
+  ensure  => '/vagrant/confs/logstash/02-logstash.conf',
   require => [ Class['logstash'] ],
 }
 

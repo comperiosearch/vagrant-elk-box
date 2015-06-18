@@ -26,12 +26,12 @@ HQ elasticsearch plugin at [http://localhost:9200/_plugin/HQ/](http://localhost:
 
 ## Vagrant commands
 
-
-```
+```bash
 vagrant up # starts the machine
 vagrant ssh # ssh to the machine
 vagrant halt # shut down the machine
 vagrant provision # applies the bash and puppet provisioning
+```
 
 ## Sample data
 
@@ -104,9 +104,9 @@ Read (a bit) more: http://blog.comperiosearch.com/blog/2014/08/14/elk-one-vagran
 
 ### Visualising stocks
 
-The stock data and visualisation is from (here)[http://blog.webkid.io/visualize-datasets-with-elk/]. The (original dataset for stocks is here)[https://gist.github.com/chrtze/51fa6bb4025ba9c7c2b3]. The images below are from the site too.
+The stock data and visualisation is from [here](http://blog.webkid.io/visualize-datasets-with-elk/). The [original dataset for stocks is here](https://gist.github.com/chrtze/51fa6bb4025ba9c7c2b3). The images below are from the site too.
 
-  1. Open (Kibana)[http://localhost:5601]
+  1. Open [Kibana](http://localhost:5601)
   2. Visualisation
   3. Add from new search
 
@@ -115,7 +115,7 @@ The stock data and visualisation is from (here)[http://blog.webkid.io/visualize-
 * Y Axis: Max, High
 * X axis: Date Histogram, Date, Daily
 
-!()[http://blog.webkid.io/content/images/2015/04/linechart.gif]
+![](http://blog.webkid.io/content/images/2015/04/linechart.gif)
 
 ### Barchart: volume of stock
 
@@ -123,7 +123,7 @@ The stock data and visualisation is from (here)[http://blog.webkid.io/visualize-
 * Y Axis: Max, Volume
 * X axis: Date Histogram, Date, Daily
 
-!()[http://blog.webkid.io/content/images/2015/04/barchart.gif]
+![](http://blog.webkid.io/content/images/2015/04/barchart.gif)
 
 ### Metric: the basics
 
@@ -131,16 +131,16 @@ The stock data and visualisation is from (here)[http://blog.webkid.io/visualize-
 * Metric 2: Max, High
 * Metric 3: Average, High
 
-!()[http://blog.webkid.io/content/images/2015/04/metric.gif]
+![](http://blog.webkid.io/content/images/2015/04/metric.gif)
 
 ### Dasboard
 
 Combine the graphs in a dashboard
 
-!()[http://blog.webkid.io/content/images/2015/04/dashboard-1.gif]
+![](http://blog.webkid.io/content/images/2015/04/dashboard-1.gif)
 
 Be able to play with them and change dates and zooming
 
-!()[http://blog.webkid.io/content/images/2015/04/dashboard-2.gif]
+![](http://blog.webkid.io/content/images/2015/04/dashboard-2.gif)
 
 
