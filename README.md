@@ -33,8 +33,7 @@ vagrant provision # applies the bash and puppet provisioning
 
 ```
 
-Logstash is started on boot and indexes into elasticsearch using the config file at [/vagrant/confs/logstash/logstash.conf](/confs/logstash/logstash.conf),
-reading from example log file at [/vagrant/example-logs/testlog](/example-logs/testlog)
+Logstash is started on boot.
 Controlled by 
 
 ```bash
@@ -43,6 +42,15 @@ Controlled by
 
 ```
 
+If you want some sample Logstash data to play with, run 
+
+```bash
+
+/opt/logstash/bin/logstash agent -f /vagrant/confs/logstash/logstash.conf
+
+```
+It will index into elasticsearch 
+reading from example log file at [/vagrant/example-logs/testlog](/example-logs/testlog)
 
 Kibana is controlled by init script at 
 
