@@ -1,6 +1,6 @@
-This vagrant box installs elasticsearch 1.6, logstash 1.5 and kibana 4. 
+This vagrant box installs elasticsearch 1.6, logstash 1.5.2 and kibana 4.1.1
 
-## Prequisites
+## Prerequisites
 
 [VirtualBox](https://www.virtualbox.org/) and [Vagrant](http://www.vagrantup.com/) (minimum version 1.6)
 Other providers, like VMWare may work, not tested!
@@ -8,9 +8,12 @@ Other providers, like VMWare may work, not tested!
 
 ## Up and SSH
 
-To get started run:
+To start the vagrant box run:
 
     vagrant up
+
+To log in to the machine run:
+
     vagrant ssh
 
 Elasticsearch will be available on the host machine at [http://localhost:9200/](http://localhost:9200/) 
@@ -33,30 +36,44 @@ vagrant provision # applies the bash and puppet provisioning
 
 ```
 
-Logstash is started on boot.
-Controlled by 
+##Elasticsearch
+Installed via debian package, started on boot.
+Controlled by
 
 ```bash
 
- sudo service logstash 
+ sudo service elasticsearch-es-01
 
 ```
 
-If you want some sample Logstash data to play with, run 
+
+##Logstash
+Installed via debian package, started on boot.
+Controlled by
+
+```bash
+
+ sudo service logstash
+
+```
+
+If you want some sample Logstash data to play with, run
 
 ```bash
 
 /opt/logstash/bin/logstash agent -f /vagrant/confs/logstash/logstash.conf
 
 ```
-It will index into elasticsearch 
+It will index into elasticsearch
 reading from example log file at [/vagrant/example-logs/testlog](/example-logs/testlog)
 
-Kibana is controlled by init script at 
+##Kibana 
+Manual install, start up script provided in this repo.
+Controlled by
 
 ```bash
 
-sudo service kibana 
+sudo service kibana
 
 ```
 
@@ -65,7 +82,7 @@ Elasticsearch and Logstash are installed using puppet modules.  deb file for Kib
 Installation can be configured in the file [/manifests/default.pp](/manifests/default.pp) .For details on the elasticsearch puppet configuration, see [https://forge.puppetlabs.com/elasticsearch/elasticsearch](https://forge.puppetlabs.com/elasticsearch/elasticsearch) Logstash puppet at [https://forge.puppetlabs.com/elasticsearch/logstash](https://forge.puppetlabs.com/elasticsearch/logstash)
 
 Elasticsearch is installed using cluster name 'vagrant_elasticsearch', instance name es-01, using 1 shard, 0 replicas. 
-Elasticsearch is controlled by init script
+Elasticsearch is controlled by
 ````
 sudo service elasticsearch-es-01
 ````

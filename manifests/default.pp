@@ -26,12 +26,10 @@ elasticsearch::instance { 'es-01':
 }
 
 elasticsearch::plugin{'royrusso/elasticsearch-HQ':
-  module_dir => 'HQ',
   instances  => 'es-01'
 }
 
 elasticsearch::plugin{'elasticsearch/marvel/latest':
-  module_dir => 'marvel',
   instances  => 'es-01'
 }
 
@@ -64,12 +62,11 @@ file { '/opt/kibana':
 }
 
 exec { 'download_kibana':
-  command => '/usr/bin/curl -L https://download.elastic.co/kibana/kibana/kibana-4.1.0-linux-x64.tar.gz | /bin/tar xvz -C /opt/kibana --strip-components 1',
+  command => '/usr/bin/curl -L https://download.elastic.co/kibana/kibana/kibana-4.1.1-linux-x64.tar.gz | /bin/tar xvz -C /opt/kibana --strip-components 1',
   require => [ Package['curl'], File['/opt/kibana'], Class['elasticsearch'] ],
   timeout => 1800
 }
 
 exec {'start kibana':
-  #command => '/bin/sleep 10 && /opt/kibana/bin/kibana & ',
     command => '/etc/init.d/kibana start',
 }
