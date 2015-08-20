@@ -10,7 +10,7 @@ class { 'java': }
 # Elasticsearch
 class { 'elasticsearch':
   manage_repo  => true,
-  repo_version => '1.6',
+  repo_version => '1.7',
 }
 
 elasticsearch::instance { 'es-01':
