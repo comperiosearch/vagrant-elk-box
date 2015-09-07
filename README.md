@@ -1,4 +1,4 @@
-This vagrant box installs elasticsearch 1.6, logstash 1.5.2 and kibana 4.1.1
+This vagrant box installs elasticsearch 1.7, logstash 1.5.4 and kibana 4.1.1
 
 ## Prerequisites
 
