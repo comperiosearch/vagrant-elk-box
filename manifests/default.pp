@@ -72,7 +72,13 @@ exec { 'download_kibana':
 }
 
 exec {'install marvel':
-    command => '/opt/kibana plugin --install elasticsearch/marvel/latest',
+  command => '/opt/kibana/bin/kibana plugin --install elasticsearch/marvel/latest',
+  require => [ Exec['download_kibana'] ],
+}
+
+exec {'install sense':
+  command => '/opt/kibana/bin/kibana plugin --install elastic/sense',
+  require => [ Exec['download_kibana'] ],
 }
 
 exec {'start kibana':
