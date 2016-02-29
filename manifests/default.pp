@@ -10,7 +10,7 @@ class { 'java': }
 # Elasticsearch
 class { 'elasticsearch':
   manage_repo  => true,
-  repo_version => '1.7',
+  repo_version => '2.x',
 }
 
 elasticsearch::instance { 'es-01':
@@ -29,7 +29,11 @@ elasticsearch::plugin{'royrusso/elasticsearch-HQ':
   instances  => 'es-01'
 }
 
-elasticsearch::plugin{'elasticsearch/marvel/latest':
+elasticsearch::plugin{'license': 
+  instances  => 'es-01'
+}
+
+elasticsearch::plugin{'marvel-agent':
   instances  => 'es-01'
 }
 
@@ -38,7 +42,7 @@ class { 'logstash':
   # autoupgrade  => true,
   ensure       => 'present',
   manage_repo  => true,
-  repo_version => '1.5',
+  repo_version => '2.2',
   require      => [ Class['java'], Class['elasticsearch'] ],
 }
 
@@ -62,9 +66,19 @@ file { '/opt/kibana':
 }
 
 exec { 'download_kibana':
-  command => '/usr/bin/curl -L https://download.elastic.co/kibana/kibana/kibana-4.1.1-linux-x64.tar.gz | /bin/tar xvz -C /opt/kibana --strip-components 1',
+  command => '/usr/bin/curl -L https://download.elastic.co/kibana/kibana/kibana-4.4.0-linux-x64.tar.gz | /bin/tar xvz -C /opt/kibana --strip-components 1',
   require => [ Package['curl'], File['/opt/kibana'], Class['elasticsearch'] ],
   timeout => 1800
+}
+
+exec {'install marvel':
+  command => '/opt/kibana/bin/kibana plugin --install elasticsearch/marvel/latest',
+  require => [ Exec['download_kibana'] ],
+}
+
+exec {'install sense':
+  command => '/opt/kibana/bin/kibana plugin --install elastic/sense',
+  require => [ Exec['download_kibana'] ],
 }
 
 exec {'start kibana':
