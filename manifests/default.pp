@@ -10,17 +10,16 @@ class { 'java': }
 # Elasticsearch
 class { 'elasticsearch':
   manage_repo  => true,
-  repo_version => '1.7',
+  repo_version => '2.x',
 }
 
 elasticsearch::instance { 'es-01':
-  config => { 
+  config => {
   'cluster.name' => 'vagrant_elasticsearch',
   'index.number_of_replicas' => '0',
   'index.number_of_shards'   => '1',
-  'network.host' => '0.0.0.0',
-  'marvel.agent.enabled' => false #DISABLE marvel data collection. 
-  },        # Configuration hash
+  'network.host' => '0.0.0.0'
+  },
   init_defaults => { }, # Init defaults hash
   before => Exec['start kibana']
 }
@@ -29,7 +28,7 @@ elasticsearch::plugin{'royrusso/elasticsearch-HQ':
   instances  => 'es-01'
 }
 
-elasticsearch::plugin{'elasticsearch/marvel/latest':
+elasticsearch::plugin{'lmenezes/elasticsearch-kopf':
   instances  => 'es-01'
 }
 
@@ -38,7 +37,7 @@ class { 'logstash':
   # autoupgrade  => true,
   ensure       => 'present',
   manage_repo  => true,
-  repo_version => '1.5',
+  repo_version => '2.2',
   require      => [ Class['java'], Class['elasticsearch'] ],
 }
 
@@ -47,7 +46,6 @@ class { 'logstash':
   #ensure  => '/vagrant/confs/logstash/logstash.conf',
  # require => [ Class['logstash'] ],
 #}
-
 
 # Kibana
 package { 'curl':
@@ -62,7 +60,7 @@ file { '/opt/kibana':
 }
 
 exec { 'download_kibana':
-  command => '/usr/bin/curl -L https://download.elastic.co/kibana/kibana/kibana-4.1.1-linux-x64.tar.gz | /bin/tar xvz -C /opt/kibana --strip-components 1',
+  command => '/usr/bin/curl -L https://download.elastic.co/kibana/kibana/kibana-4.4.0-linux-x64.tar.gz | /bin/tar xvz -C /opt/kibana --strip-components 1',
   require => [ Package['curl'], File['/opt/kibana'], Class['elasticsearch'] ],
   timeout => 1800
 }
