@@ -16,13 +16,12 @@ To log in to the machine run:
 
     vagrant ssh
 
-Elasticsearch will be available on the host machine at [http://localhost:9200/](http://localhost:9200/) 
+Elasticsearch will be available on the host machine at [http://localhost:9200/](http://localhost:9200/)
 
 Kibana at [http://localhost:5601/](http://localhost:5601/)
 
-Marvel elasticsearch plugin at [http://localhost:9200/_plugin/marvel/](http://localhost:9200/_plugin/marvel/)
-
 HQ elasticsearch plugin at [http://localhost:9200/_plugin/HQ/](http://localhost:9200/_plugin/HQ/)
+kopf elasticsearch plugin at [http://localhost:9200/_plugin/kopf/](http://localhost:9200/_plugin/kopf/)
 
 
 ## Vagrant commands
@@ -67,7 +66,15 @@ If you want some sample Logstash data to play with, run
 It will index into elasticsearch
 reading from example log file at [/vagrant/example-logs/testlog](/example-logs/testlog)
 
-##Kibana 
+If you want to use /vagrant/confs/logstash/logstash.conf:
+
+```bash
+
+rm /etc/logstash/conf.d/logstash.conf; ln -s /vagrant/confs/logstash/logstash.conf /etc/logstash/conf.d/logstash.conf
+
+```
+
+##Kibana
 Manual install, start up script provided in this repo.
 Controlled by
 
@@ -78,10 +85,10 @@ sudo service kibana
 ```
 
 ## Configuration details
-Elasticsearch and Logstash are installed using puppet modules.  deb file for Kibana is downloaded and extracted, thanks to @UnrealQuester we even have init script for Kibana. 
+Elasticsearch and Logstash are installed using puppet modules.  deb file for Kibana is downloaded and extracted, thanks to @UnrealQuester we even have init script for Kibana.
 Installation can be configured in the file [/manifests/default.pp](/manifests/default.pp) .For details on the elasticsearch puppet configuration, see [https://forge.puppetlabs.com/elasticsearch/elasticsearch](https://forge.puppetlabs.com/elasticsearch/elasticsearch) Logstash puppet at [https://forge.puppetlabs.com/elasticsearch/logstash](https://forge.puppetlabs.com/elasticsearch/logstash)
 
-Elasticsearch is installed using cluster name 'vagrant_elasticsearch', instance name es-01, using 1 shard, 0 replicas. 
+Elasticsearch is installed using cluster name 'vagrant_elasticsearch', instance name es-01, using 1 shard, 0 replicas.
 
 
 Read (a bit) more: http://blog.comperiosearch.com/blog/2014/08/14/elk-one-vagrant-box/
