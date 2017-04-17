@@ -36,7 +36,7 @@ vagrant provision # applies the bash and puppet provisioning
 
 ```
 
-##Elasticsearch
+## Elasticsearch
 Installed via debian package, started on boot.
 Controlled by
 
@@ -47,7 +47,7 @@ Controlled by
 ```
 
 
-##Logstash
+## Logstash
 Installed via debian package, started on boot.
 Controlled by
 
@@ -67,7 +67,7 @@ If you want some sample Logstash data to play with, run
 It will index into elasticsearch
 reading from example log file at [/vagrant/example-logs/testlog](/example-logs/testlog)
 
-##Kibana 
+## Kibana 
 Manual install, start up script provided in this repo.
 Controlled by
 
