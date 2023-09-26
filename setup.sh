@@ -41,5 +41,5 @@ if [ ! -f /etc/init.d/kibana ]; then
  sudo sed -i 's/\r//' /etc/init.d/kibana
  sudo chmod +x /etc/init.d/kibana
  sudo update-rc.d kibana defaults
- wget -q http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz http://download.maxmind.com/download/geoip/database/asnum/GeoIPASNum.dat.gz
+ wget -q https://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz https://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz https://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz https://download.maxmind.com/download/geoip/database/asnum/GeoIPASNum.dat.gz
 fi
